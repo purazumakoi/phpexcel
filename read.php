@@ -5,91 +5,170 @@
  * Date: 14/09/11
  * Time: 13:49
  *
- * viaFhttp://www.pxt.jp/ja/diary/article/281/
+ * viaï¼šhttp://www.pxt.jp/ja/diary/article/281/
  */
 
 set_include_path(get_include_path().PATH_SEPARATOR.$_SERVER["DOCUMENT_ROOT"].'/kenji/git_repo/phpexcel/PHPExcel_1.8.0_doc/Classes/');
 
 include_once( 'PHPExcel.php' );
 
+/**
+ * å…ƒãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ã®èª­ã¿è¾¼ã¿
+ *
+ *
+ */
 
-// Šù‘¶ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ‚Ìê‡
+// æ—¢å­˜ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿ã®å ´åˆ
 $objPHPExcel = PHPExcel_IOFactory::load("./read.xlsx");
 
 
 /**
- * ƒV[ƒgŒn
+ * ã‚·ãƒ¼ãƒˆç³»
  */
-		// 0”Ô–Ú‚ÌƒV[ƒg‚ğƒAƒNƒeƒBƒu‚É‚·‚éiƒV[ƒg‚Í¶‚©‚ç‡‚ÉA0A1C2EEEj
+		// 0ç•ªç›®ã®ã‚·ãƒ¼ãƒˆã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹ï¼ˆã‚·ãƒ¼ãƒˆã¯å·¦ã‹ã‚‰é †ã«ã€0ã€1ï¼Œ2ãƒ»ãƒ»ãƒ»ï¼‰
 		$objPHPExcel->setActiveSheetIndex(0);
 
-		// ƒAƒNƒeƒBƒu‚É‚µ‚½ƒV[ƒg‚Ìî•ñ‚ğæ“¾
+		// ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã—ãŸã‚·ãƒ¼ãƒˆã®æƒ…å ±ã‚’å–å¾—
 		$objSheet = $objPHPExcel->getActiveSheet();
 
-		// ƒV[ƒg–¼•ÏX
+		// ã‚·ãƒ¼ãƒˆåå¤‰æ›´
 		$objSheet->setTitle('test');
 
 /**
- * ƒZƒ‹‚Éƒf[ƒ^‘‚«‚Ş
+ * ã‚»ãƒ«ã«ãƒ‡ãƒ¼ã‚¿æ›¸ãè¾¼ã‚€
  */
-		// ƒZƒ‹‚Éƒf[ƒ^‘‚«‚İ
-		$objSheet->getCell('A1')->setValue('ƒeƒXƒg');
-		//‚±‚Á‚¿‚Ì‘‚«•û‚Å‚à‚æ‚¢
-		$objSheet->setCellValue('A1', 'ƒeƒXƒg');
-
-		// ”®‚Ì‘‚«•û
-		$objSheet->getCell('B1')->setValue(120);
-		$objSheet->getCell('B2')->setValue(523);
-		$objSheet->getCell('B3')->setValue('=B1+B2');
+//		// ã‚»ãƒ«ã«ãƒ‡ãƒ¼ã‚¿æ›¸ãè¾¼ã¿
+//		$objSheet->getCell('A1')->setValue('ãƒ†ã‚¹ãƒˆ');
+//		//ã“ã£ã¡ã®æ›¸ãæ–¹ã§ã‚‚ã‚ˆã„
+//		$objSheet->setCellValue('A1', 'ãƒ†ã‚¹ãƒˆ');
+//
+//		// æ•°å¼ã®æ›¸ãæ–¹
+//		$objSheet->getCell('B1')->setValue(120);
+//		$objSheet->getCell('B2')->setValue(523);
+//		$objSheet->getCell('B3')->setValue('=B1+B2');
 
 /**
- * ƒZƒ‹‚©‚çƒf[ƒ^‚ğ“Ç‚İæ‚é
+ * ã‚»ãƒ«ã‹ã‚‰ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿å–ã‚‹
  */
-		// ’l‚Ìæ“¾
-		$val = $objSheet->getCell('B3')->getValue();
+// é…åˆ—å®šç¾©
+$ary_data = array();
+
+// ãƒ‡ãƒ¼ã‚¿ã®è¡Œæ•°
+$line = 300;
+for($i=2; $i<$line; $i++){
+	$cel_a = $objSheet->getCell('A'.$i)->getValue();
+	$cel_b = $objSheet->getCell('B'.$i)->getValue();
+	$cel_c = $objSheet->getCell('C'.$i)->getValue();
+	$cel_d = $objSheet->getCell('D'.$i)->getValue();
+	$cel_e = $objSheet->getCell('E'.$i)->getValue();
+	$cel_f = $objSheet->getCell('F'.$i)->getValue();
+
+	// æ—¥ä»˜ãŒã¯ã„ã£ã¦ã„ãŸã‚‰ãã®æ—¥ã«åˆ‡æ›¿ãˆã‚‹
+	if($cel_a){
+		$now_date = $cel_a;
+	}
+	// åŒºåˆ†ãŒã‚ã‚Œã°åŒºåˆ†ã‚’ãã‚Œã«ã™ã‚‹
+	if($cel_b){
+		$now_kubun = $cel_b;
+		$key = 0;
+	}
+
+	// é…åˆ—ã®æ•°å–å¾—
+	$key = intval(@max( array_keys((array)$ary_data[$now_date][$now_kubun]) )) + 1;
+
+
+	// é…åˆ—ä½œæˆ
+	if($cel_e){
+		$ary_data[$now_date][$now_kubun][$key]['calorie'] = $cel_c;
+		$ary_data[$now_date][$now_kubun][$key]['price'] = $cel_d;
+		$ary_data[$now_date][$now_kubun][$key]['name'] = $cel_e;
+		$ary_data[$now_date][$now_kubun][$key]['background-color'] = $cel_f;
+	}
+
+}
+
+//print_r($ary_data); print " ";
+
+
+
 
 /**
- * ‘®
+ * æ–°ãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®æ›¸ãå‡ºã—
+ *
+ *
  */
-		// ƒZƒ‹‚ÌŒ‹‡
-		$objSheet->mergeCells('A10:D14');
+// æ—¢å­˜ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿ã®å ´åˆ
+$objPHPExcel = PHPExcel_IOFactory::load("./put.xlsx");
 
-		// ƒtƒHƒ“ƒg
-		$objStyle->getFont()->setName('ƒƒCƒŠƒI');
+// 0ç•ªç›®ã®ã‚·ãƒ¼ãƒˆã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹ï¼ˆã‚·ãƒ¼ãƒˆã¯å·¦ã‹ã‚‰é †ã«ã€0ã€1ï¼Œ2ãƒ»ãƒ»ãƒ»ï¼‰
+$objPHPExcel->setActiveSheetIndex(0);
 
-		// ƒtƒHƒ“ƒgƒTƒCƒY
-		$objStyle->getFont()->setSize(14);
+// ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã—ãŸã‚·ãƒ¼ãƒˆã®æƒ…å ±ã‚’å–å¾—
+$objSheet = $objPHPExcel->getActiveSheet();
 
-		// ƒZƒ‹‚Ì‰º‚ÉŒrü‚ğˆø‚­
-		$objStyle->getBorders()->getTop()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
-		$objStyle->getBorders()->getRight()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
-		$objStyle->getBorders()->getBottom()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
-		$objStyle->getBorders()->getLeft()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
-
-		// Œrü‚ÌˆêŠ‡w’è
-		$objStyle->applyFromArray(array(
-		'borders' => array(
-		'top'     => array('style' => PHPExcel_Style_Border::BORDER_THIN),
-		'bottom'  => array('style' => PHPExcel_Style_Border::BORDER_THIN),
-		'left'    => array('style' => PHPExcel_Style_Border::BORDER_THIN),
-		'right'   => array('style' => PHPExcel_Style_Border::BORDER_THIN)
-		)
-		));
-
-		// ¶Šñ‚¹
-		$objStyle->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-		// ƒZƒ“ƒ^[Šñ‚¹
-		$objStyle->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-		// ‰EŠñ‚¹
-		$objStyle->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-
-		// ”wŒiFw’è
-		$objStyle->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);//©fillType‚ğİ’è‚µ‚È‚¢‚Æ”wŒiF‚Í‚Â‚©‚È‚¢B
-		$objStyle->getFill()->getStartColor()->setRGB('dddddd');
+// ã‚·ãƒ¼ãƒˆåå¤‰æ›´
+$objSheet->setTitle('ç¬¬ä¸€å·¥å ´ æ˜¼');
 
 /**
- * •Û‘¶
+ * ãƒ‡ãƒ¼ã‚¿æ§‹ç¯‰
  */
-// "Excel2007" Œ`®‚Å•Û‘¶‚·‚é
+
+print_r($ary_data); print " ";
+
+// æ—¥ä»˜ãƒ«ãƒ¼ãƒ—ã‚«ã‚¦ãƒ³ãƒˆ
+$cnt = 0;
+
+
+foreach($ary_data as $key => $val){
+	// æ—¥ä»˜ã„ã‚Œåˆ—å
+	$date_write_row = chr(98+$cnt);
+	$objSheet->setCellValue($date_write_row  ."4", $key);
+
+	// ã‚¹ã‚¿ãƒ¼ãƒˆè¡Œ
+	$line = 6;
+
+	foreach($val as $key2 => $val2){
+
+
+		foreach($val2 as $key3 => $val3){
+			if($val3['name']){
+				// å®Ÿãƒ‡ãƒ¼ã‚¿å…¥ã‚Œåˆ—å
+				$date_write_data = 98+$cnt;
+
+
+				// å®Ÿãƒ‡ãƒ¼ã‚¿ã‚»ãƒƒãƒˆ
+
+				// åŒºåˆ†
+				$objSheet->setCellValue(chr($date_write_data)  .$line, $key2);
+
+				// ãã®ä»–
+				$objSheet->setCellValue(chr($date_write_data+1) . $line, $val3['calorie']);
+				$objSheet->setCellValue(chr($date_write_data+2) . $line, $val3['price']);
+				$objSheet->setCellValue(chr($date_write_data+3) . $line, $val3['name']);
+				//$objSheet->setCellValue($date_write_data . $line, $val2['background-color']);
+
+				$line++;
+
+			}
+		}
+	}
+
+	// æ—¥ä»˜ã‹ã‚ã‚Šã¾ã—ãŸã€‚
+	$cnt += 4;
+}
+
+$objSheet->setCellValue("B" . $line,'å£²ä¾¡ã«ã¯æ¶ˆè²»ç¨8ï¼…ãŒå«ã¾ã‚Œã¦ã„ã¾ã™ã€‚');
+$objSheet->setCellValue("F" . $line,'ä»•å…¥ã‚Œã®éƒ½åˆã«ã‚ˆã‚Šå†…å®¹ãŒå¤‰æ›´ã™ã‚‹å ´åˆãŒã‚ã‚Šã¾ã™ã€‚');
+
+/**
+ * ä¿å­˜
+ */
+// "Excel2007" å½¢å¼ã§ä¿å­˜ã™ã‚‹
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-$objWriter->save('./read.xlsx');
+$objWriter->save('./put.xlsx');
+
+echo "<br><br>ã€Œput.xlsxã€ã‚’æ›¸ãå‡ºã—ã¾ã—ãŸã€‚";
+
+
+// æ¨©é™å¤‰ãˆã¾ã™
+chmod("./put.xlsx", 0777);
